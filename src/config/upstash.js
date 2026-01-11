@@ -1,15 +1,19 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
-// 1. Create the Redis client using your env variables
+if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+  throw new Error("Missing Upstash environment variables!");
+}
+
+// Create the Redis client
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-// 2. Pass that 'redis' client into the Ratelimit config
+// Configure rate limiter
 const RateLimit = new Ratelimit({
-  redis: redis, // <--- CHANGE THIS (It was Redis.fromEnv())
+  redis,
   limiter: Ratelimit.slidingWindow(10, '10 s'),
   analytics: true,
 });
