@@ -10,7 +10,7 @@ import RateLimiter from './middleware/RateLimiter.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['https://lpu-reg-frontend-3zxy93n6w-thomas-projects-68f5bf1c.vercel.app/'];
 app.use(cors({
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
